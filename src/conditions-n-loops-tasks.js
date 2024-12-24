@@ -258,8 +258,13 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const strLength = str.length;
+  const halfStrLength = str.length / 2;
+  for (let i = 0; i < halfStrLength; i += 1) {
+    if (str[i] !== str[strLength - 1 - i]) return false;
+  }
+  return true;
 }
 
 /**
@@ -276,8 +281,12 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  const strLength = str.length;
+  for (let i = 0; i < strLength; i += 1) {
+    if (str[i] === letter) return i;
+  }
+  return -1;
 }
 
 /**
@@ -295,8 +304,14 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  if (num === digit) return true;
+  let restNum = num;
+  while (restNum !== 0) {
+    if (restNum % 10 === digit) return true;
+    restNum = (restNum - (restNum % 10)) / 10;
+  }
+  return false;
 }
 
 /**
@@ -312,8 +327,21 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  const arrLength = arr.length;
+  if (arrLength < 3) return -1;
+  for (let i = 1; i < arrLength - 1; i += 1) {
+    let sumLeft = 0;
+    let sumRight = 0;
+    for (let j = 0; j < i; j += 1) {
+      sumLeft += arr[j];
+    }
+    for (let j = arrLength - 1; j > i; j -= 1) {
+      sumRight += arr[j];
+    }
+    if (sumLeft === sumRight) return i;
+  }
+  return -1;
 }
 
 /**
@@ -395,8 +423,23 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  const strLength = str.length;
+  let iteration = iterations;
+  let result = str;
+  while (iteration > 0) {
+    let stringInLoop1 = '';
+    let stringInLoop2 = '';
+    for (let i = 0; i < strLength; i += 2) {
+      stringInLoop1 += result[i];
+      if (result[i + 1]) {
+        stringInLoop2 += result[i + 1];
+      }
+    }
+    result = stringInLoop1 + stringInLoop2;
+    iteration -= 1;
+  }
+  return result;
 }
 
 /**
