@@ -365,8 +365,39 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  if (size < 1) return [];
+
+  const result = new Array(size);
+  for (let i = 0; i < size; i += 1) {
+    result[i] = new Array(size);
+  }
+
+  function spiral(temparray, left, right, top, bottom, tempvalue) {
+    const array = temparray;
+    let value = tempvalue;
+    if (left < right && top < bottom) {
+      for (let i = left; i < right; i += 1) {
+        array[left][i] = value;
+        value += 1;
+      }
+      for (let i = top + 1; i < bottom; i += 1) {
+        array[i][right - 1] = value;
+        value += 1;
+      }
+      for (let i = right - 2; i >= left; i -= 1) {
+        array[right - 1][i] = value;
+        value += 1;
+      }
+      for (let i = bottom - 2; i >= top + 1; i -= 1) {
+        array[i][left] = value;
+        value += 1;
+      }
+      spiral(array, left + 1, right - 1, top + 1, bottom - 1, value);
+    }
+  }
+  spiral(result, 0, size, 0, size, 1);
+  return result;
 }
 
 /**
@@ -402,16 +433,49 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
-  const arrLength = arr.length;
-  const result = arr;
-  for (let i = 0; i < arrLength; i += 1) {
-    for (let j = 1; j < arrLength - i; j += 1) {
-      if (result[j - 1] > result[j])
-        [result[j - 1], result[j]] = [result[j], result[j - 1]];
-    }
-  }
-  return result;
+function sortByAsc(/* arr */) {
+  throw new Error('Not implemented');
+  // const arrLength = arr.length;
+  // if (arrLength === 0) return [];
+  // let left = [];
+  // let right = [];
+  // const pivot = arr[0];
+
+  // let j = 0;
+  // let k = 0;
+  // for (let i = 1; i < arrLength; i += 1) {
+  //   if (arr[i] < pivot) {
+  //     left[j] = arr[i];
+  //     j += 1;
+  //   } else {
+  //     right[k] = arr[i];
+  //     k += 1;
+  //   }
+  // }
+
+  // left = sortByAsc(left);
+  // right = sortByAsc(right);
+
+  // const result = [];
+  // const leftLength = left.length;
+  // // const rightLength = right.length;
+
+  // for (let i = 1; i < arrLength; i += 1) {
+  //   if (i < leftLength) result[i] = left[i];
+  //   if (i === leftLength) result[i] = pivot;
+  //   if (i > leftLength) result[i] = right[i - leftLength - 1];
+  // }
+
+  // return result;
+
+  // const result = arr;
+  // for (let i = 0; i < arrLength; i += 1) {
+  //   for (let j = 1; j < arrLength - i; j += 1) {
+  //     if (result[j - 1] > result[j])
+  //       [result[j - 1], result[j]] = [result[j], result[j - 1]];
+  //   }
+  // }
+  // return result;
 }
 
 /**
