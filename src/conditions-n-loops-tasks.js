@@ -448,49 +448,38 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
-  // const arrLength = arr.length;
-  // if (arrLength === 0) return [];
-  // let left = [];
-  // let right = [];
-  // const pivot = arr[0];
+function sortByAsc(arr) {
+  function swap(array, i, j) {
+    const pArr = array;
+    const temp = pArr[i];
+    pArr[i] = pArr[j];
+    pArr[j] = temp;
+  }
 
-  // let j = 0;
-  // let k = 0;
-  // for (let i = 1; i < arrLength; i += 1) {
-  //   if (arr[i] < pivot) {
-  //     left[j] = arr[i];
-  //     j += 1;
-  //   } else {
-  //     right[k] = arr[i];
-  //     k += 1;
-  //   }
-  // }
+  function partition(array, left, right) {
+    const pivot = array[right];
+    let i = left - 1;
+    for (let j = left; j <= right - 1; j += 1) {
+      if (array[j] < pivot) {
+        i += 1;
+        swap(array, i, j);
+      }
+    }
+    swap(array, i + 1, right);
+    return i + 1;
+  }
 
-  // left = sortByAsc(left);
-  // right = sortByAsc(right);
+  function qSort(array, left, right) {
+    if (left < right) {
+      const pivotPosition = partition(array, left, right);
+      qSort(array, left, pivotPosition - 1);
+      qSort(array, pivotPosition + 1, right);
+    }
+  }
 
-  // const result = [];
-  // const leftLength = left.length;
-  // // const rightLength = right.length;
+  const rightIndexPosition = arr.length - 1;
 
-  // for (let i = 1; i < arrLength; i += 1) {
-  //   if (i < leftLength) result[i] = left[i];
-  //   if (i === leftLength) result[i] = pivot;
-  //   if (i > leftLength) result[i] = right[i - leftLength - 1];
-  // }
-
-  // return result;
-
-  // const result = arr;
-  // for (let i = 0; i < arrLength; i += 1) {
-  //   for (let j = 1; j < arrLength - i; j += 1) {
-  //     if (result[j - 1] > result[j])
-  //       [result[j - 1], result[j]] = [result[j], result[j - 1]];
-  //   }
-  // }
-  // return result;
+  qSort(arr, 0, rightIndexPosition);
 }
 
 /**
